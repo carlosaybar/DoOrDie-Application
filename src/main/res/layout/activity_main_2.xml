@@ -28,7 +28,6 @@
             android:textColor="@android:color/holo_blue_bright"
             android:text="Restart" />
 
-
     </RelativeLayout>
 
     <LinearLayout
@@ -52,6 +51,13 @@
             android:freezesText="true"/>
         <Button
             android:id="@+id/button_02"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_03"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,6 +91,13 @@
             android:layout_weight="1"
             android:textSize = "60sp"
             android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_13"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
 
     </LinearLayout>
     <LinearLayout
@@ -113,19 +126,61 @@
             android:layout_weight="1"
             android:textSize = "60sp"
             android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_23"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_30"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_31"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_32"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
+        <Button
+            android:id="@+id/button_33"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize = "60sp"
+            android:freezesText="true"/>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/four_by_four_button"
+        android:id="@+id/five_by_five_button"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="105dp"
+        android:layout_marginLeft="100dp"
         android:text="Next"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="15sp" />
-
 
 </LinearLayout>

@@ -9,9 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity_2 extends AppCompatActivity implements View.OnClickListener {
 
-    private Button[][] buttons = new Button[3][3];
+    private Button[][] buttons = new Button[4][4];
     public int x = 0;
 
     private boolean player1Turn = true;
@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_2);
 
         textViewPlayer1 = findViewById(R.id.text_view_p1);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 String buttonID = "button_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 buttons[i][j] = findViewById(resID);
@@ -45,18 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
 
                 resetGame();
-            }
-        });
-
-        Button next_Activity_button = findViewById(R.id.four_by_four_button);
-        next_Activity_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, MainActivity_2.class);
-
-                // start the activity connect to the specified class
-                startActivity(intent);
             }
         });
     }
@@ -83,11 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         roundCount++;
-        if ((roundCount == 9) && (checkForWin())) {
+        if ((roundCount == 16) && (checkForWin())) {
             player1Wins();
             // x = 0;
         }
-        else if((roundCount == 9) &&(!checkForWin()))
+        else if((roundCount == 16) &&(!checkForWin()))
         {
             draw();
             x = 0;
@@ -99,27 +87,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        String[][] tempGrid = new String[3][3];
+        String[][] tempGrid = new String[4][4];
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 tempGrid[i][j] = (buttons[i][j].getText().toString());
             }
         }
 
-        int [] [] grid = new int[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        int [] [] grid = new int[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 grid[i][j] = Integer.parseInt(tempGrid[i][j]);
             }
         }
 
 
-        if( grid [0][0] + grid[1][0] + grid[2][0] == grid [0][1] + grid[1][1] + grid[2][1] &&
-                grid [0][1] + grid[1][1] + grid[2][1] == grid [0][2] + grid[1][2] + grid[2][2] &&
-                grid [0][0] + grid[0][1] + grid[0][2] ==  grid [1][0] + grid[1][1] + grid[1][2] &&
-                grid [1][0] + grid[1][1] + grid[1][2] == grid [2][0] + grid[2][1] + grid[2][2] &&
-                grid [0][0] + grid[1][1] + grid[2][2] == grid [2][0] + grid[1][1] + grid[0][2])
+        if( grid [0][0] + grid[1][0] + grid[2][0]  + grid[3][0]== grid [0][1] + grid[1][1] + grid[2][1] +grid[3] [1]&&
+                grid [0][1] + grid[1][1] + grid[2][1] + grid[3][1] == grid [0][2] + grid[1][2] + grid[2][2] + grid[3][2]&&
+                grid [0][0] + grid[0][1] + grid[0][2] + grid[0][3] ==  grid [1][0] + grid[1][1] + grid[1][2] + grid[1][3] &&
+                grid [1][0] + grid[1][1] + grid[1][2] + grid[1][3] == grid [2][0] + grid[2][1] + grid[2][2] + grid[2][3] &&
+                grid [0][0] + grid[1][1] + grid[2][2] + grid[3][3]== grid [3][0] + grid[2][1] + grid[1][2] + grid[0][3])
         {
             return true;
         }
@@ -146,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void resetBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 buttons[i][j].setText("");
             }
         }
@@ -180,3 +168,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 }
+
