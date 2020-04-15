@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int roundCount;
 
-    private int player1Points;
+    public static int player1Points;
     // private int player2Points;
 
     private TextView textViewPlayer1;
@@ -47,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resetGame();
             }
         });
+/*
+        if(player1Points > 0){
+            Intent intent = new Intent(MainActivity.this, MainActivity_2.class);
+
+            // start the activity connect to the specified class
+            startActivity(intent);
+        }
+
+ */
 
         Button next_Activity_button = findViewById(R.id.four_by_four_button);
         next_Activity_button.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -121,7 +132,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 grid [1][0] + grid[1][1] + grid[1][2] == grid [2][0] + grid[2][1] + grid[2][2] &&
                 grid [0][0] + grid[1][1] + grid[2][2] == grid [2][0] + grid[1][1] + grid[0][2])
         {
+            Intent intent = new Intent(MainActivity.this, MainActivity_2.class);
+
+            // start the activity connect to the specified class
+            startActivity(intent);
             return true;
+
         }
 
         return false;

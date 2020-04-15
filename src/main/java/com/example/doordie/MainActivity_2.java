@@ -18,7 +18,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     private int roundCount;
 
-    private int player1Points;
+    private int player1Points = MainActivity.player1Points;
     // private int player2Points;
 
     private TextView textViewPlayer1;
@@ -168,4 +168,3 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
 
 }
-

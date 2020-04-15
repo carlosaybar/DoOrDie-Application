@@ -14,7 +14,7 @@
             android:id = "@+id/text_view_p1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text = "Current Level: 0"
+            android:text = "Current Level: 1"
             android:textSize = "30sp"
             android:freezesText="true"/>
 
@@ -178,7 +178,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="100dp"
-        android:text="Next"
+        android:text="Skip Level"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="15sp" />

@@ -122,7 +122,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="105dp"
-        android:text="Next"
+        android:text="Skip Level"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="15sp" />
