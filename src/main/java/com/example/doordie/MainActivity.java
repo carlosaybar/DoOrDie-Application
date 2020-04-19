@@ -8,17 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
+import java.io.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
     public int x = 0;
 
-    private boolean player1Turn = true;
+    private boolean Turn = true;
 
     private int roundCount;
 
-    public static int player1Points;
+    public static int Points;
     // private int player2Points;
 
     private TextView textViewPlayer1;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //int x = 0;
 
-        if (player1Turn) {
+        if (Turn) {
             x++;
             // ((Button) v).setText((x));
             ((Button) v).setText(String.valueOf(x));
@@ -94,19 +95,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         roundCount++;
-        if ((roundCount == 9) && (checkForWin())) {
+        if ((roundCount == 9) && (win())) {
             player1Wins();
+
             // x = 0;
         }
-        else if((roundCount == 9) &&(!checkForWin()))
+        else if((roundCount == 9) &&(!win()))
         {
-            draw();
+            lose();
             x = 0;
         }
 
     }
 
-    private boolean checkForWin() {
+    private boolean win() {
 
 
 
@@ -145,23 +147,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void player1Wins() {
-        player1Points++;
+        Points++;
         Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
-        updatePointsText();
-        resetBoard();
+
+        try
+        {
+            FileOutputStream fos = new FileOutputStream("Scores.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject("Current Level: " + Points); //writes the serialized contacts to the file
+            oos.close();
+            fos.close();
+
+        }catch(FileNotFoundException FNFE)
+        {
+            System.out.print("Error: file not found");
+        }
+        catch(IOException IOE)
+        {
+            System.out.print("Error: cannot write to the file");
+        }
+
+        updatePoints();
+        clearBoard();
     }
 
 
-    private void draw() {
-        Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show();
-        resetBoard();
+    private void lose() {
+        Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
+        clearBoard();
     }
 
-    private void updatePointsText() {
-        textViewPlayer1.setText("Current Level: " + player1Points);
+    private void updatePoints() {
+        textViewPlayer1.setText("Current Level: " + Points);
     }
 
-    private void resetBoard() {
+    private void clearBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
@@ -169,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         roundCount = 0;
-        player1Turn = true;
+        Turn = true;
     }
 
     private void resetGame(){
         //player1Points = 0;
-        updatePointsText();
-        resetBoard();
+        updatePoints();
+        clearBoard();
         x = 0;
     }
 
@@ -183,15 +203,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putInt("roundCount", roundCount);
-        outState.putInt("player1Points", player1Points);
-        outState.putBoolean("player1Turn", player1Turn);
+        outState.putInt("player1Points", Points);
+        outState.putBoolean("player1Turn", Turn);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         roundCount = savedInstanceState.getInt("roundCount");
-        player1Points = savedInstanceState.getInt("player1Points");
-        player1Turn = savedInstanceState.getBoolean("player1turn");
+        Points = savedInstanceState.getInt("player1Points");
+        Turn = savedInstanceState.getBoolean("player1turn");
     }
 
 

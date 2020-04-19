@@ -7,18 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
+
+import java.io.*;
 
 public class MainActivity_2 extends AppCompatActivity implements View.OnClickListener {
 
-    private Button[][] buttons = new Button[4][4];
+    private Button[][] cells = new Button[4][4];
     public int x = 0;
 
-    private boolean player1Turn = true;
+    private boolean Turn = true;
 
     private int roundCount;
 
-    private int player1Points = MainActivity.player1Points;
+    private int Points = MainActivity.Points;
     // private int player2Points;
 
     private TextView textViewPlayer1;
@@ -28,14 +29,15 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_2);
 
+
         textViewPlayer1 = findViewById(R.id.text_view_p1);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 String buttonID = "button_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                buttons[i][j] = findViewById(resID);
-                buttons[i][j].setOnClickListener(this);
+                cells[i][j] = findViewById(resID);
+                cells[i][j].setOnClickListener(this);
             }
         }
 
@@ -57,7 +59,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
         //int x = 0;
 
-        if (player1Turn) {
+        if (Turn) {
             x++;
             // ((Button) v).setText((x));
             ((Button) v).setText(String.valueOf(x));
@@ -71,19 +73,19 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
 
         roundCount++;
-        if ((roundCount == 16) && (checkForWin())) {
+        if ((roundCount == 16) && (win())) {
             player1Wins();
             // x = 0;
         }
-        else if((roundCount == 16) &&(!checkForWin()))
+        else if((roundCount == 16) &&(!win()))
         {
-            draw();
+            lose();
             x = 0;
         }
 
     }
 
-    private boolean checkForWin() {
+    private boolean win() {
 
 
 
@@ -91,7 +93,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                tempGrid[i][j] = (buttons[i][j].getText().toString());
+                tempGrid[i][j] = (cells[i][j].getText().toString());
             }
         }
 
@@ -117,53 +119,72 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
 
     private void player1Wins() {
-        player1Points++;
+        Points++;
         Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
-        updatePointsText();
-        resetBoard();
+
+        try
+        {
+            FileOutputStream fos = new FileOutputStream("Scores.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject("Current Level: " + Points); //writes the serialized contacts to the file
+            oos.close();
+            fos.close();
+
+        }catch(FileNotFoundException FNFE)
+        {
+            System.out.print("Error: file not found");
+        }
+        catch(IOException IOE)
+        {
+            System.out.print("Error: cannot write to the file");
+        }
+        updatePoints();
+        clearBoard();
     }
 
 
-    private void draw() {
-        Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show();
-        resetBoard();
+    private void lose() {
+        Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
+        clearBoard();
     }
 
-    private void updatePointsText() {
-        textViewPlayer1.setText("Current Level: " + player1Points);
+    private void updatePoints() {
+        textViewPlayer1.setText("Current Level: " + Points);
     }
 
-    private void resetBoard() {
+    private void clearBoard() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                buttons[i][j].setText("");
+                cells[i][j].setText("");
             }
         }
 
         roundCount = 0;
-        player1Turn = true;
+        Turn = true;
     }
 
     private void resetGame(){
         //player1Points = 0;
-        updatePointsText();
-        resetBoard();
+        updatePoints();
+        clearBoard();
         x = 0;
     }
 
-    //when we rotate the device
+    /*
+    so that if we rotate the device we dont lose the data
+     */
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putInt("roundCount", roundCount);
-        outState.putInt("player1Points", player1Points);
-        outState.putBoolean("player1Turn", player1Turn);
+        outState.putInt("player1Points", Points);
+        outState.putBoolean("player1Turn", Turn);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         roundCount = savedInstanceState.getInt("roundCount");
-        player1Points = savedInstanceState.getInt("player1Points");
-        player1Turn = savedInstanceState.getBoolean("player1turn");
+        Points = savedInstanceState.getInt("player1Points");
+        Turn = savedInstanceState.getBoolean("player1turn");
     }
 
 
