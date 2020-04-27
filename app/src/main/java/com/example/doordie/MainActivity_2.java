@@ -20,7 +20,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     private int roundCount;
 
-    public static int Points;
+    public static int Points = MainActivity.Points+1;
     // private int player2Points;
 
     private TextView textViewPlayer1;
