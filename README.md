@@ -23,6 +23,20 @@ Some of the features that make my game different are:
 
 Below I have included the three most important chunks of code for my game:
 
+1. This first capture was taken from level one layout of the game. This chunk of code sets the first rows of buttons for the grid. I set the width, color, height, and button id.
+
+![Capture4](https://user-images.githubusercontent.com/58013489/80424638-24b9cf00-88b0-11ea-93e0-78d381b30497.PNG)
+
+2. This is the Oncreate method, which creates the layout for the screen of the app. I sets also declares each button with their specific button id so that we can populate them later as the user plays each turn.
+
+![Capture6](https://user-images.githubusercontent.com/58013489/80424640-25526580-88b0-11ea-90b3-3433d07b1b7a.PNG)
+
+3. This part of the code tells the app to set the value of each button equals to x whenver a button is clicked. x is initially 1, and then it increments with each click.
+
+![Capture5](https://user-images.githubusercontent.com/58013489/80424639-24b9cf00-88b0-11ea-81ba-449f59fc20c4.PNG)
+
+
+
 
 
 ### Installation
