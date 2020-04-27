@@ -42,7 +42,17 @@ The libraries imported in order to create this game were:
 
 To play this game, first, click the clone or download project from this repository. Then open the downloaded repository in android studio. select a virtuall device to run download the application on. If you do not have a virtual device created, go ahead and open the AVD Manager in virtual studio to create one. This game runs on 98% of android devices, so feel free to download whichever phone you like best. then click the green triangle(Run) to download and run the Do or Die app on your virtual device. 
 
-1. Once you have clicked the run button, the app will install and you will start the game at level 1.
+1. Once you have clicked the run button, the app will install and you will start the game at level 1. As pictured below, this level is the 3 by 3 empty grid wich you need to fill in so that it becomes a magic square. You can always click the restart button on the upper right hand corner to empty the grid and start over.
+
+![Capture1](https://user-images.githubusercontent.com/58013489/80424635-24213880-88b0-11ea-8e00-3244d4e4a314.PNG)
+
+2. After completing level 1, you will automatically advance to level two. Level 2, as seen below, is a bit more challenging because you are require to solve a four by four magic square. Again, you can always click restart to start this level again or should you choose to skip the level, just hit the skip level buttom on the buttom of the screen.
+
+![Capture2](https://user-images.githubusercontent.com/58013489/80424636-24b9cf00-88b0-11ea-8bb5-a803b3cc12f0.PNG)
+
+3. The last level is #3. This level is much more complex than the previous 2. The grid is now a five by 5. Take your time, calculate each move, and the restart button allows you to try as many times a you wish.
+
+![Capture3](https://user-images.githubusercontent.com/58013489/80424637-24b9cf00-88b0-11ea-997b-298ed2febfb1.PNG)
 		
  
 ### Credits
