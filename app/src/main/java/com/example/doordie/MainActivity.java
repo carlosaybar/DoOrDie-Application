@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView textViewPlayer1;
 
+    /**
+     *this method calls the activity layout
+     * launches the app, and creates all the buttons
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    /**
+     * this method writes the numbers to the grid each time
+     * the player clicks one of the grids buttons.
+     * it keeps track of the round count so that when the grid is full
+     * it can validate the magic square
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (!((Button)v).getText().toString().equals("")) {
@@ -102,6 +115,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     *this method contains the logic and rules for a player to win this game
+     * it checks to see if the numbers inputted are a magic square
+     * if the magic square is valid, the player will advance to the next level
+     * @return true or false, depending on whether the player wins or not
+     */
     private boolean win() {
 
 
@@ -179,6 +198,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    /**
+     *updates the points and writes the scorte to
+     * the dat file
+     */
     private void player1Wins() {
         Points++;
         Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
@@ -206,15 +229,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
+    /**
+     * this method displays a "Try again" message to the user
+     * and clears the board for the user to play again
+     */
     private void lose() {
         Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
         clearBoard();
     }
 
+    /**
+     * updates the points whenever the player wins a round
+     */
     private void updatePoints() {
+
         textViewPlayer1.setText("Current Level: " + Points);
     }
 
+    /**
+     * erases any numbers in the grid
+     * this is called whenever the player wins, loses, or restarts the game
+     */
     private void clearBoard() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -226,6 +262,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Turn = true;
     }
 
+    /**
+     * whenver the user hits the restart button
+     * this method will be called to clear the board
+     * and to update the points
+     */
     private void resetGame() {
         //player1Points = 0;
         updatePoints();
@@ -233,7 +274,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         x = 0;
     }
 
-    //when we rotate the device
+    /**
+     * This method makes sure you do not lose any of the game information
+     * whenever you rotate your device. you can rotate your device at any point
+     * during the game and your progress will not be lost
+     * @param outState
+     */
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("roundCount", roundCount);
@@ -241,6 +287,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putBoolean("player1Turn", Turn);
     }
 
+    /**
+     * saves the information when the device is rotated
+     * @param savedInstanceState
+     */
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         roundCount = savedInstanceState.getInt("roundCount");
