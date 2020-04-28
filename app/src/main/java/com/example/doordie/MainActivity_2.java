@@ -20,11 +20,16 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     private int roundCount;
 
-    public static int Points = MainActivity.Points+1;
+    public static int Points = MainActivity.Points+1; //points here is inherited from MainActivity.java
     // private int player2Points;
 
     private TextView textViewPlayer1;
 
+    /**
+     *this method calls the activity layout
+     * launches the app, and creates all the buttons
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,13 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * this method writes the numbers to the grid each time
+     * the player clicks one of the grids buttons.
+     * it keeps track of the round count so that when the grid is full
+     * it can validate the magic square
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (!((Button)v).getText().toString().equals("")) {
@@ -92,7 +104,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
         roundCount++;
         if ((roundCount == size * size) && (win())) {
-            player1Wins();
+            playerWins();
 
             // x = 0;
         }
@@ -104,16 +116,26 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     *this method contains the logic and rules for a player to win this game
+     * it checks to see if the numbers inputted are a magic square
+     * if the magic square is valid, the player will advance to the next level
+     * @return true or false, depending on whether the player wins or not
+     */
     private boolean win() {
 
 
 
         String[][] tempGrid = new String[size][size];
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                tempGrid[i][j] = (buttons[i][j].getText().toString());
+        try{
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    tempGrid[i][j] = (buttons[i][j].getText().toString());
+                }
             }
+        }catch(NullPointerException NPE)
+        {
+            Toast.makeText(this, "Cell is empty!", Toast.LENGTH_SHORT).show();
         }
 
         int[][] grid = new int[size][size];
@@ -182,44 +204,41 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     }
 
-
-    private void player1Wins() {
+    /**
+     *updates the points and writes the scorte to
+     * the dat file
+     */
+    private void playerWins() {
         Points++;
         Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
-
-        try
-        {
-            FileOutputStream fos = new FileOutputStream("Scores.dat");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject("Current Level: " + Points); //writes the serialized contacts to the file
-            oos.close();
-            fos.close();
-
-        }
-        catch (FileNotFoundException FNFE)
-        {
-            System.out.print("Error: file not found");
-        }
-        catch (IOException IOE)
-        {
-            System.out.print("Error: cannot write to the file");
-        }
-
-        updatePoints();
-        clearBoard();
+        updateScore();
+        clearGrid();
     }
 
-
+    /**
+     * this method displays a "Try again" message to the user
+     * and clears the board for the user to play again
+     */
     private void lose() {
         Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
-        clearBoard();
+        clearGrid();
     }
 
-    private void updatePoints() {
+
+    /**
+     * updates the points whenever the player wins a round
+     */
+    private void updateScore() {
+
         textViewPlayer1.setText("Current Level: " + Points);
     }
 
-    private void clearBoard() {
+
+    /**
+     * erases any numbers in the grid
+     * this is called whenever the player wins, loses, or restarts the game
+     */
+    private void clearGrid() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 buttons[i][j].setText("");
@@ -230,27 +249,67 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
         Turn = true;
     }
 
+    /**
+     * whenver the user hits the restart button
+     * this method will be called to clear the board
+     * and to update the points
+     */
     private void resetGame() {
         //player1Points = 0;
-        updatePoints();
-        clearBoard();
+        updateScore();
+        clearGrid();
         x = 0;
     }
 
-    //when we rotate the device
+    /**
+     * This method makes sure you do not lose any of the game information
+     * whenever you rotate your device. you can rotate your device at any point
+     * during the game and your progress will not be lost
+     * @param outState
+     */
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("roundCount", roundCount);
-        outState.putInt("player1Points", Points);
-        outState.putBoolean("player1Turn", Turn);
+        outState.putInt("Points", Points);
+        outState.putBoolean("Turn", Turn);
     }
 
+    /**
+     * saves the information when the device is rotated
+     * @param savedInstanceState
+     */
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         roundCount = savedInstanceState.getInt("roundCount");
-        Points = savedInstanceState.getInt("player1Points");
-        Turn = savedInstanceState.getBoolean("player1turn");
+        Points = savedInstanceState.getInt("Points");
+        Turn = savedInstanceState.getBoolean("Turn");
     }
 
+    /**
+     * The SaveScores method creates a file called
+     * Scores.dat, where the scores/level completed will be saved
+     * it uses recursion to write the information to the file
+     * @param file the name fo the file (Scores.dat)
+     * @param score the string conversion of points to be written to the file
+     */
+    private void SaveScores(ObjectOutputStream file, String score)
+    {
+        try {
+            FileOutputStream fos = new FileOutputStream("Scores.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            score = String.valueOf( Points );
+            this.SaveScores(oos, "Current level"); //writes this message to the file
+            this.SaveScores(oos, score); //uses recursion to save the scores
+            fos.close();
+            oos.close();
+        }catch(FileNotFoundException FNE)
+        {
+            Toast.makeText(this, "Scores file does not exist!", Toast.LENGTH_SHORT).show();
+        }catch(IOException IOE)
+        {
+            Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }
