@@ -10,6 +10,11 @@ import android.widget.Toast;
 import android.content.Intent;
 import java.io.*;
 
+
+/**
+ *  this class declares, sets the layout, and implements level 2
+ *   of my do or die game.
+ */
 public class MainActivity_2 extends AppCompatActivity implements View.OnClickListener{
 
     private int size = 4;
@@ -20,11 +25,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     private int roundCount;
 
-<<<<<<< HEAD
     public static int Points = MainActivity.Points+1; //points here is inherited from MainActivity.java
-=======
-    public static int Points = MainActivity.Points+1;
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
     // private int player2Points;
 
     private TextView textViewPlayer1;
@@ -108,11 +109,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
         roundCount++;
         if ((roundCount == size * size) && (win())) {
-<<<<<<< HEAD
             playerWins();
-=======
-            player1Wins();
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
 
             // x = 0;
         }
@@ -135,7 +132,6 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
 
         String[][] tempGrid = new String[size][size];
-<<<<<<< HEAD
         try{
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
@@ -145,13 +141,6 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
         }catch(NullPointerException NPE)
         {
             Toast.makeText(this, "Cell is empty!", Toast.LENGTH_SHORT).show();
-=======
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                tempGrid[i][j] = (buttons[i][j].getText().toString());
-            }
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
         }
 
         int[][] grid = new int[size][size];
@@ -224,38 +213,11 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      *updates the points and writes the scorte to
      * the dat file
      */
-<<<<<<< HEAD
     private void playerWins() {
         Points++;
         Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
         updateScore();
         clearGrid();
-=======
-    private void player1Wins() {
-        Points++;
-        Toast.makeText(this, "Next Level", Toast.LENGTH_SHORT).show();
-
-        try
-        {
-            FileOutputStream fos = new FileOutputStream("Scores.dat");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject("Current Level: " + Points); //writes the serialized contacts to the file
-            oos.close();
-            fos.close();
-
-        }
-        catch (FileNotFoundException FNFE)
-        {
-            System.out.print("Error: file not found");
-        }
-        catch (IOException IOE)
-        {
-            System.out.print("Error: cannot write to the file");
-        }
-
-        updatePoints();
-        clearBoard();
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
     }
 
     /**
@@ -264,23 +226,15 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      */
     private void lose() {
         Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
         clearGrid();
-=======
-        clearBoard();
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
     }
 
 
     /**
      * updates the points whenever the player wins a round
      */
-<<<<<<< HEAD
     private void updateScore() {
 
-=======
-    private void updatePoints() {
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
         textViewPlayer1.setText("Current Level: " + Points);
     }
 
@@ -289,11 +243,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      * erases any numbers in the grid
      * this is called whenever the player wins, loses, or restarts the game
      */
-<<<<<<< HEAD
     private void clearGrid() {
-=======
-    private void clearBoard() {
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 buttons[i][j].setText("");
@@ -311,13 +261,8 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      */
     private void resetGame() {
         //player1Points = 0;
-<<<<<<< HEAD
         updateScore();
         clearGrid();
-=======
-        updatePoints();
-        clearBoard();
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
         x = 0;
     }
 
@@ -330,13 +275,8 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("roundCount", roundCount);
-<<<<<<< HEAD
         outState.putInt("Points", Points);
         outState.putBoolean("Turn", Turn);
-=======
-        outState.putInt("player1Points", Points);
-        outState.putBoolean("player1Turn", Turn);
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
     }
 
     /**
@@ -346,7 +286,6 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         roundCount = savedInstanceState.getInt("roundCount");
-<<<<<<< HEAD
         Points = savedInstanceState.getInt("Points");
         Turn = savedInstanceState.getBoolean("Turn");
     }
@@ -377,11 +316,5 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-=======
-        Points = savedInstanceState.getInt("player1Points");
-        Turn = savedInstanceState.getBoolean("player1turn");
-    }
-
->>>>>>> 0e8f44c04d5bf8b90da85f1528563d8984e23eba
 
 }
