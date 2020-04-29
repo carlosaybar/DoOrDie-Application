@@ -33,7 +33,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
     /**
      *this method calls the activity layout
      * launches the app, and creates all the buttons
-     * @param savedInstanceState
+     * @param savedInstanceState saves the current state of the Activity at any given point
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      * the player clicks one of the grids buttons.
      * it keeps track of the round count so that when the grid is full
      * it can validate the magic square
-     * @param v
+     * @param v the button you've clicked
      */
     @Override
     public void onClick(View v) {
@@ -128,8 +128,6 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      * @return true or false, depending on whether the player wins or not
      */
     private boolean win() {
-
-
 
         String[][] tempGrid = new String[size][size];
         try{
@@ -270,7 +268,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
      * This method makes sure you do not lose any of the game information
      * whenever you rotate your device. you can rotate your device at any point
      * during the game and your progress will not be lost
-     * @param outState
+     * @param outState determines if the phone is rotated
      */
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -281,7 +279,7 @@ public class MainActivity_2 extends AppCompatActivity implements View.OnClickLis
 
     /**
      * saves the information when the device is rotated
-     * @param savedInstanceState
+     * @param savedInstanceState  saves the current state of the Activity at any given point
      */
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
